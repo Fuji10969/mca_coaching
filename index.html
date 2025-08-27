@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach d'Escalade | Votre Progression, Notre Passion</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Barre de navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">MCA</a>
+            
+            <div class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#a-propos">À Propos</a></li>
+                    <li><a href="#prestations">Prestations</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="menu-buttons" aria-label="Menu de navigation">
+                <button id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Ouvrir le menu">
+                    <i class="fas fa-bars" id="showMenu" aria-hidden="true"></i>
+                    <i class="fas fa-times" id="closeMenu" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Section Hero -->
+    <section class="hero" id="accueil">
+        <div class="container">
+            <div class="hero-content animate-fadeInUp">
+                <h1>Entraîneur et Préparateur physique</h1>
+                <p>Je vous accompagne dans votre progression avec un coaching personnalisé et adapté à vos objectifs en escalade.</p>
+                <a href="#contact" class="btn">Contactez-moi</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section À Propos -->
+    <section class="about section-padding" id="a-propos">
+        <div class="container">
+            <h2 class="section-title animate-fadeInUp">À Propos de Moi</h2>
+            <div class="about-content">
+                <div class="about-image animate-fadeIn">
+                    <img src="./pictures/photos/va.jpg" alt="Coach d'escalade">
+                </div>
+                <div class="about-text animate-fadeIn delay-100">
+                    <p>Passionné d'escalade depuis plus de 14 ans, ouvreur et entraîneur diplômé, je mets mon expérience au service de votre évolution.</p>
+                    <p class="delay-200">Avec une approche personnalisée, je m'adapte à votre niveau et à vos objectifs, que vous soyez débutant ou grimpeur confirmé.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Prestations -->
+    <section class="services section-padding" id="prestations">
+        <div class="container">
+            <h2 class="section-title animate-fadeInUp">Mes Prestations</h2>
+            <div class="services-grid">
+                <div class="service-card card animate-fadeInUp delay-100">
+                    <img src="pictures/icones/solo.png" alt="Cours particulier">
+                    <h3>Cours Particulier</h3>
+                    <p>Séance personnalisée à Vertical'Art Brest.</p>
+                </div>
+                <div class="service-card card animate-fadeInUp delay-200">
+                    <img src="pictures/icones/planification.png" alt="Planification">
+                    <h3>Entraînement</h3>
+                    <p>Programme d'entraînement personnalisé.</p>
+                </div>
+                <div class="service-card card animate-fadeInUp delay-300">
+                    <img src="pictures/icones/visseuse.png" alt="Ouvreur">
+                    <h3>Ouvreur</h3>
+                    <p>Ouverture de blocs et de voies d'escalade.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section class="contact section-padding" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contactez-moi</h2>
+            <div class="contact-container">
+                <!-- Message de succès -->
+                <div class="confirmation-message">
+                    <div class="confirmation-content">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Message envoyé avec succès !</h3>
+                        <p>Je vous répondrai dans les plus brefs délais.</p>
+                        <button id="newMessageBtn" class="btn">Nouveau message</button>
+                    </div>
+                </div>
+                
+                <!-- Formulaire de contact -->
+                <div class="contact-form-container">
+                    <form id="contactForm" class="contact-form" novalidate>
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder=" " required>
+                            <label for="name">Nom complet</label>
+                            <div class="error-message" id="name-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder=" " required>
+                            <label for="email">Email</label>
+                            <div class="error-message" id="email-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <select id="subject" name="subject" required>
+                                <option value="" disabled selected></option>
+                                <option value="Cours particulier">Cours particulier</option>
+                                <option value="Entraînement">Entraînement</option>
+                                <option value="Ouverture">Ouverture</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                            <label for="subject">Sujet</label>
+                            <div class="error-message" id="subject-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
+                            <label for="message">Message</label>
+                            <div class="error-message" id="message-error"></div>
+                        </div>
+                        <button type="submit" class="btn">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">&copy; 2024 MCA Coach d'Escalade. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+</body>
+</html>
