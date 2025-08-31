@@ -85,7 +85,7 @@ body {
     background-color: var(--white);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    padding: 15px 0;
+    padding: 10px 0;
     transition: var(--transition);
 }
 
@@ -198,20 +198,46 @@ body {
     flex: 1;
     opacity: 0;
     transform: translateX(-50px);
-    animation: fadeInLeft 0.8s ease forwards;
+    animation: fadeInLeft 4s ease forwards;
+}
+
+.about-image.animate-on-scroll {
+    transform: translateX(-400px);
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out; /* Animation plus longue */
+}
+
+.about-image.animate-on-scroll.visible {
+    transform: translateX(0);
 }
 
 .about-image img {
-    width: 100%;
+    max-width: 100%;
+    height: auto;
+    /* Préserve les couleurs du SVG */
+    filter: none !important;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.about-image img:hover{
+    transform: scale(1.03);
 }
 
 .about-text {
     flex: 1;
     opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s ease 0.3s forwards;
+    transform: translateY(50px);
+    animation: fadeInUp 2s ease 0.3s forwards;
+}
+
+.about-text.animate-on-scroll {
+    transform: translateX(100px);
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out 0.3s; /* Délai pour l'effet de vague */
+}
+
+.about-text.animate-on-scroll.visible {
+    transform: translateX(0);
 }
 
 .about-text p {
@@ -347,6 +373,22 @@ body {
     width: 100%;
 }
 
+/* Style pour les boutons dans les cartes de service */
+.service-card .btn-small {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    margin-top: 15px;
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .btn-small {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* Styles pour la vue détaillée */
 .service-details {
     position: fixed;
@@ -354,150 +396,209 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
     justify-content: center;
-    opacity: 0;
-    visibility: hidden;
+    align-items: center;
     z-index: 1000;
-    transition: all 0.4s ease;
+    opacity: 0;
+    transition: opacity 0.3s ease;
     padding: 20px;
     box-sizing: border-box;
 }
 
-.service-card.active .service-details {
+.service-details.visible {
+    display: flex;
     opacity: 1;
-    visibility: visible;
 }
 
-.service-content {
+.service-details-container {
     background: white;
-    border-radius: 15px;
-    max-width: 1000px;
-    width: 100%;
+    border-radius: 10px;
+    max-width: 800px;
+    width: 90%;
     max-height: 90vh;
     overflow-y: auto;
+    position: relative;
     padding: 40px;
-    position: relative;
     transform: translateY(20px);
-    transition: transform 0.4s ease;
-}
-
-.service-card.active .service-content {
-    transform: translateY(0);
-}
-
-.close-service {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    color: var(--secondary-color);
-    transition: color 0.3s ease;
-}
-
-.close-service:hover {
-    color: var(--primary-color);
-}
-
-.service-details-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    margin-top: 20px;
-}
-
-.service-text {
-    text-align: left;
-}
-
-.service-text h3 {
-    color: var(--secondary-color);
-    margin-bottom: 20px;
-}
-
-.service-text h4 {
-    color: var(--primary-color);
-    margin: 25px 0 15px;
-}
-
-.service-text ul {
-    margin: 15px 0 25px;
-    padding-left: 20px;
-}
-
-.service-text ul li {
-    margin-bottom: 10px;
-    position: relative;
-    padding-left: 15px;
-}
-
-.service-text ul li::before {
-    content: '•';
-    color: var(--primary-color);
-    position: absolute;
-    left: 0;
-}
-
-.service-images {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    align-items: start;
-}
-
-.service-images img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
     transition: transform 0.3s ease;
 }
 
-.service-images img:hover {
+.service-details.visible .service-details-container {
+    transform: translateY(0);
+}
+
+.service-details-content {
+    position: relative;
+}
+
+.service-details h3 {
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.service-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.service-info {
+    margin-bottom: 25px;
+    line-height: 1.8;
+    color: #555;
+    white-space: pre-line;
+}
+
+.price {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+    text-align: center;
+    margin: 25px 0;
+}
+
+.service-image-container {
+    margin: 25px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.service-detail-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.service-image-container:hover .service-detail-image {
     transform: scale(1.03);
 }
 
-/* Animation pour la carte active */
-.service-card.active {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1.1);
+.close-details {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 2rem;
+    color: #666;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
     z-index: 1001;
-    width: 90%;
-    max-width: 1000px;
-    height: auto;
-    min-height: auto;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
 }
 
-.service-card.active .service-card-inner {
-    opacity: 0;
-    visibility: hidden;
+.close-details:hover {
+    color: #000;
+    background-color: #f0f0f0;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-    .service-details-grid {
-        grid-template-columns: 1fr;
+/* Styles pour la section des tarifs */
+.pricing-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 30px 0;
+}
+
+.pricing-section h4 {
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    position: relative;
+    padding-bottom: 10px;
+    text-align: left;
+}
+
+.pricing-section h4:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.pricing-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pricing-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.pricing-item:last-child {
+    border-bottom: none;
+}
+
+.pricing-label {
+    font-weight: 500;
+    color: #444;
+}
+
+.pricing-amount {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Bouton de réservation */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: 2px solid var(--primary-color);
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    display: inline-block;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: transparent;
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Responsive pour les tarifs */
+@media (max-width: 768px) {
+    .pricing-section {
+        padding: 15px;
     }
     
-    .service-images {
-        margin-top: 30px;
-    }
-}
-
-@media (max-width: 600px) {
-    .service-content {
-        padding: 20px;
+    .pricing-item {
+        flex-direction: column;
+        padding: 10px 0;
     }
     
-    .service-images {
-        grid-template-columns: 1fr;
+    .pricing-amount {
+        margin-top: 5px;
+        color: var(--secondary-color);
+    }
+    
+    .btn-primary {
+        width: 100%;
+        text-align: center;
     }
 }
 
@@ -513,21 +614,21 @@ body {
 }
 
 .contact-form-container {
-    transition: opacity 0.5s ease, visibility 0.5s ease;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    min-height: 500px; /* Hauteur minimale pour éviter les sauts de mise en page */
 }
 
 .contact-form {
-    background: var(--white);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    position: relative;
-    overflow: hidden;
+    width: 100%;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .form-group {
     position: relative;
     margin-bottom: 30px;
+    transition: all 0.3s ease;
 }
 
 .form-group input,
@@ -646,26 +747,20 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--white);
+    right: 0;
+    bottom: 0;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     opacity: 0;
     visibility: hidden;
-    transition: var(--transition);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
     z-index: 10;
-}
-
-.confirmation-message.active {
-    opacity: 1;
-    visibility: visible;
 }
 
 .confirmation-message i {
@@ -684,6 +779,99 @@ body {
     color: var(--dark-gray);
     margin-bottom: 30px;
     max-width: 500px;
+}
+
+.contact-form.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+}
+
+.confirmation-message.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Message de confirmation */
+.confirmation-message {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.confirmation-message.visible {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.confirmation-content {
+    max-width: 100%;
+}
+
+.confirmation-message i.fas {
+    font-size: 64px;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.confirmation-message h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.confirmation-message p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.confirmation-message .btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.confirmation-message .btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Animation pour le message de confirmation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.confirmation-message.visible .confirmation-content {
+    animation: fadeInUp 0.6s ease forwards;
 }
 
 /* Footer */
@@ -722,6 +910,25 @@ footer {
     }
 }
 
+/* Animations au défilement */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Délais pour les animations */
+.animate-delay-100 { transition-delay: 0.1s; }
+.animate-delay-200 { transition-delay: 0.2s; }
+.animate-delay-300 { transition-delay: 0.3s; }
+.animate-delay-400 { transition-delay: 0.4s; }
+.animate-delay-500 { transition-delay: 0.5s; }
+
 /* Responsive Design */
 @media (max-width: 992px) {
     .about-content {
@@ -741,18 +948,27 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .navbar {
+        padding: 5px 0;
+    }
+    
     .nav-links {
         position: fixed;
-        top: 80px;
+        top: 50px;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 80px);
+        max-height: calc(100vh - 50px);
+        overflow-y: auto;
         background-color: var(--white);
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        padding: 0;
+        margin: 0;
         transition: var(--transition);
         z-index: 999;
+        border-top: 1px solid #eee;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
     
     .nav-links.active {
@@ -762,10 +978,18 @@ footer {
     .nav-links ul {
         flex-direction: column;
         align-items: center;
+        width: 100%;
     }
     
     .nav-links li {
-        margin: 15px 0;
+        margin: 5px 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 8px 0;
     }
     
     .menu-buttons {
@@ -824,5 +1048,435 @@ footer {
     
     .confirmation-message h3 {
         font-size: 1.5rem;
+    }
+}
+
+/* Styles pour la section des détails du service */
+.service-details {
+    width: 100%;
+    background-color: var(--light-gray);
+    padding: 80px 0;
+}
+
+.service-details-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Styles pour le formulaire de contact */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-group label {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    color: #777;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    padding: 0 5px;
+    transform-origin: left top;
+}
+
+/* Styles pour les champs en focus ou remplis */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus,
+.form-group input:not(:placeholder-shown),
+.form-group textarea:not(:placeholder-shown) {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+}
+
+.form-group input:focus + label,
+.form-group select:valid + label,
+.form-group textarea:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 10px;
+    font-size: 0.8rem;
+    background: white;
+    padding: 0 8px;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Styles pour les champs obligatoires */
+.form-group input:required + label::after,
+.form-group select:required + label::after,
+.form-group textarea:required + label::after {
+    content: ' *';
+    color: #e74c3c;
+}
+
+/* Styles pour les messages d'erreur */
+.error-message {
+    color: #e74c3c;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    height: 18px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.form-group.error .error-message {
+    opacity: 1;
+}
+
+/* Style pour les champs en erreur */
+.form-group.error input,
+.form-group.error select,
+.form-group.error textarea {
+    border-color: #e74c3c;
+    background-color: #fff8f8;
+}
+
+.form-group.error label {
+    color: #e74c3c;
+}
+
+/* Style pour le bouton d'envoi */
+.contact-form button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.contact-form button[type="submit"]:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Style pour le message de confirmation */
+.confirmation-message {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(20px);
+}
+
+.confirmation-message i {
+    font-size: 4rem;
+    color: #2ecc71;
+    margin-bottom: 20px;
+}
+
+.confirmation-message h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.confirmation-message p {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.confirmation-message .btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.confirmation-message .btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Animation pour le chargement du formulaire */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.contact-form-container {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Conteneur du formulaire */
+.contact-form-container {
+    position: relative;
+    min-height: 600px;
+}
+
+/* Formulaire de contact */
+.contact-form {
+    width: 100%;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    background: var(--white);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* Message de confirmation */
+.confirmation-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.confirmation-content {
+    max-width: 100%;
+}
+
+.confirmation-message i.fas {
+    font-size: 64px;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.confirmation-message h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.confirmation-message p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.confirmation-message .btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.confirmation-message .btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Styles pour le carrousel */
+.carousel-container {
+    position: relative;
+    max-width: 800px; /* Largeur maximale réduite */
+    margin: 30px auto; /* Centrage horizontal */
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 400px; /* Hauteur fixe pour le carrousel */
+}
+
+.carousel-track img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+    display: block;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 60px;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-button.prev {
+    left: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.carousel-button.next {
+    right: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.carousel-nav {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 10;
+}
+
+.carousel-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-indicator.active {
+    background-color: white;
+    transform: scale(1.2);
+}
+
+/* Styles responsifs */
+@media (max-width: 768px) {
+    .carousel-track {
+        height: 300px;
+    }
+    
+    .carousel-button {
+        width: 30px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-track {
+        height: 200px;
+    }
+}
+
+/* Section Vidéo */
+.video-section {
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.video-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* Ratio 16:9 */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .video-wrapper {
+        margin: 0 10px;
     }
 }
